@@ -4,11 +4,15 @@
 
 echo "Welcome to Employee Problem"
 
-isPresent=1
+isFullTime=1
 randomCheck=$((RANDOM%2))
 if [ $randomCheck -eq $isPresent ]
 then
-	echo "Employee is present"
+	empRatePerHour=20
+	empHrs=8
+	salary=$(($empRatePerHour*$empHrs))
 else
-	echo "Employee is absent"
+	salary=0
 fi
+
+echo "your one day salary : $salary"
