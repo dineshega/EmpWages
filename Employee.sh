@@ -13,22 +13,24 @@ MAX_HRS_IN_MONTH=160
 totalEmpHrs=0
 totalWorkingDays=0
 
-#for(( day=1; day<=$numofworkingDays; day++ ))
-while [[ $totalEmpHrs -lt $MAX_HRS_IN_MONTH && $totalWorkingDays -lt $NO_OF_WORKING_DAYS ]]
-do
-		((totalWorkingDays++))
-		
-		empCheck=$((RANDOM%3))
-
-		case $empCheck in
+function getWorkingHours(){
+	case $1 in
 			$IS_FULL_TIME )
 				empHrs=8;;
 			$IS_PART_TIME )
 				empHrs=4;;
 			* )
 				empHrs=0;;
-		esac
-		
+	esac
+	echo $empHrs
+}
+
+
+#for(( day=1; day<=$numofworkingDays; day++ ))
+while [[ $totalEmpHrs -lt $MAX_HRS_IN_MONTH && $totalWorkingDays -lt $NO_OF_WORKING_DAYS ]]
+do
+		((totalWorkingDays++))
+		empHrs=$( getWorkingHours $((RANDOM%3)) )		
 		totalEmpHrs=$(($totalEmpHrs+$empHrs))
 		#salary=$(($empRatePerHour*$empHrs))
 		#totalSalary=$(($totalSalary+$salary))		
