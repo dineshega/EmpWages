@@ -5,14 +5,19 @@
 echo "Welcome to Employee Problem"
 
 isFullTime=1
-randomCheck=$((RANDOM%2))
-if [ $randomCheck -eq $isPresent ]
+isPartTime=2
+empRatePerHour=20
+randomCheck=$((RANDOM%3))
+if [ $randomCheck -eq $isFullTime ]
 then
-	empRatePerHour=20
 	empHrs=8
-	salary=$(($empRatePerHour*$empHrs))
+	
+elif [ $randomCheck -eq $isPartTime ]
+then
+	empHrs=4
+	
 else
-	salary=0
+	empHrs=0
 fi
-
+salary=$(($empRatePerHour*$empHrs))
 echo "your one day salary : $salary"
