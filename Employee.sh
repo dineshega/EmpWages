@@ -13,6 +13,8 @@ MAX_HRS_IN_MONTH=160
 totalEmpHrs=0
 totalWorkingDays=0
 
+declare -A dailywages
+
 function getWorkingHours(){
 	case $1 in
 			$IS_FULL_TIME )
@@ -37,10 +39,12 @@ do
 		totalEmpHrs=$(($totalEmpHrs+$empHrs))
 		#salary=$(($empRatePerHour*$empHrs))
 		#totalSalary=$(($totalSalary+$salary))		
-		dailywages[$totalWorkingDays]=$( getEmpWages $empHrs )
+		dailywages["Day"$totalWorkingDays]=$( getEmpWages $empHrs )
 		((totalWorkingDays++))
 done
 
 		totalSalary=$(($EMP_RATE_PER_HOUR*$totalEmpHrs))
 		echo "totalSalary is: " $totalSalary
-		echo "dailywages ${dailywages[@]}"y 
+		echo "dailywages: ${dailywages[@]}"
+		echo "dailyindex: ${!dailywages[@]}"
+		#echo "3rd day: ${!dailywages[Day3]} : ${dailywages[Day3]}"
