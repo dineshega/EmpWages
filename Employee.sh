@@ -25,16 +25,22 @@ function getWorkingHours(){
 	echo $empHrs
 }
 
+function getEmpWages(){
+	oneDayHrs=$1
+	echo $(($oneDayHrs*$EMP_RATE_PER_HOUR))	
+}
 
 #for(( day=1; day<=$numofworkingDays; day++ ))
 while [[ $totalEmpHrs -lt $MAX_HRS_IN_MONTH && $totalWorkingDays -lt $NO_OF_WORKING_DAYS ]]
 do
-		((totalWorkingDays++))
 		empHrs=$( getWorkingHours $((RANDOM%3)) )		
 		totalEmpHrs=$(($totalEmpHrs+$empHrs))
 		#salary=$(($empRatePerHour*$empHrs))
 		#totalSalary=$(($totalSalary+$salary))		
+		dailywages[$totalWorkingDays]=$( getEmpWages $empHrs )
+		((totalWorkingDays++))
 done
 
 		totalSalary=$(($EMP_RATE_PER_HOUR*$totalEmpHrs))
-		echo "totalSalary is: " $totalSalary 
+		echo "totalSalary is: " $totalSalary
+		echo "dailywages ${dailywages[@]}"y 
